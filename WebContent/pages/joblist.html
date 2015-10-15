@@ -1,0 +1,38 @@
+<div class="container job-item-list no-padding-right">
+	<div class="row job-item wow animated fadeIn" ng-repeat="job in jobPostings">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-8">
+					<h4>{{job.jobPosting.title}}</h4>
+				</div>
+				<div class="col-xs-2">
+					<a href="job/{{job.jobPosting._jobId}}" type="button" class="btn btn-default">Details</a>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-2">
+					<p> <i class="fa fa-indent"></i>
+						{{job.jobPosting.positionType}}
+					</p>
+				</div>
+				<div class="col-xs-2">
+					<p> <i class="fa fa-dollar"></i>
+						{{job.jobPosting.salaryRate}}
+					</p>
+				</div>
+				<div class="col-xs-3">
+					<p>
+						<i class="fa fa-calendar"></i>
+						{{job.jobPosting.closingTime}}
+					</p>
+				</div>
+				<div class="col-xs-5">
+					<p>
+						<i class="fa fa-map-marker"></i>
+						{{job.jobPosting.location}}
+					</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

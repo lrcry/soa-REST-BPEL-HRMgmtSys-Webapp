@@ -1,0 +1,21 @@
+.container-fluid {
+	padding-left: 0px;
+}
+
+.left-sidebar h5 {
+	padding-top: 24px;
+	padding-bottom: 24px;
+	color: #ffffff;
+	border: 2px solid #ffffff;
+	width: 100%;
+	text-align: center;
+}
+
+.left-sidebar a {
+	color: #ffffff;
+}
+
+.left-sidebar {
+	background-color: #ecc343;
+	height: 100vh;
+}

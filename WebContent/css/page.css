@@ -1,0 +1,43 @@
+body {
+	background-color: #eeeeee;
+}
+
+.job-item-list {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.job-item {
+	-webkit-transition: .5s;
+	-moz-transition: .5s;
+	-ms-transition: .5s;
+	-o-transition: .5s;
+	transition: .5s;
+	padding-top: 14px;
+	padding-bottom: 14px;
+	padding-left: 14px;
+}
+
+.job-item:hover {
+	background-color: #ffffff;
+}
+
+.no-padding-right {
+	padding-right: 0;
+}
+
+.no-padding-left {
+	padding-left: 0;
+}
+
+.centered-text {
+	text-align: center;
+}
+
+.title-hr {
+	border: 1px solid #ecc343;
+}
+
+.jobdetail-wrapper {
+	padding-top: 20px;
+}

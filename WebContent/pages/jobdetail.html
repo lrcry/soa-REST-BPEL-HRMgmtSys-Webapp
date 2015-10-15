@@ -1,0 +1,81 @@
+<div class="container">
+	<div class="row centered-text">
+		<h1>{{jobPosting.title}}</h1>
+		<hr class="title-hr"/>
+		<div ng-if="jobPosting.status == 'ARCHIVED'">
+			<button type="button" class="btn btn-primary disabled">Job application closed</button>
+		</div>
+		<div ng-if="jobPosting.status != 'ARCHIVED'">
+			<a type="button" class="btn btn-primary" href="">Apply for this job</a>
+		</div>
+	</div>
+</div>
+<div class="container jobdetail-wrapper">
+	<div class="row">
+		<div class="col-xs-6">
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Job basic information</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<p>Salary rate:</p>
+				</div>
+				<div class="col-xs-3">
+					<p>{{jobPosting.salaryRate}}</p>
+				</div>
+				<div class="col-xs-3">
+					<p>Position type:</p>
+				</div>
+				<div class="col-xs-3">
+					<p>{{jobPosting.positionType}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<p>Posted by:</p>
+				</div>
+				<div class="col-xs-3">
+					<p>
+						<!-- Job created by -->
+					</p>
+				</div>
+				<div class="col-xs-3">
+					<p>Job status:</p>
+				</div>
+				<div class="col-xs-3">
+					<p>{{jobPosting.status}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<p>Closing time:</p>
+				</div>
+				<div class="col-xs-9">
+					<p>{{jobPosting.closingTime}}</p>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-3">
+					<p>Job location:</p>
+				</div>
+				<div class="col-xs-9">
+					<p>{{jobPosting.location}}</p>
+				</div>
+			</div>
+		</div>
+		<div class="col-xs-6">
+			<div class="row">
+				<div class="col-xs-12">
+					<h3>Job details</h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-12">
+					<p>{{jobPosting.details}}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
