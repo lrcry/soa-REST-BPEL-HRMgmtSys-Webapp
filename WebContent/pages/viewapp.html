@@ -1,1 +1,116 @@
-	<h1>viewapp</h1>
+<div class="container wow animated fadeIn">
+	<div class="row centered-text">
+		<h1>View your application</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row">
+		<form ng-submit="getApplication()" method="GET" role="form">
+			<div class="col-xs-3"></div>
+			<div class="col-xs-6">
+				<div class="form-group">
+					<input type="text" class="form-control" id="" placeholder="Your application ID ..." ng-model="viewApp._appId"></div>
+			</div>
+			<div class="col-xs-3">
+				<button type="submit" class="btn btn-primary">View</button>
+			</div>
+		</form>
+	</div>
+	<div ng-show="viewApp._appId == oldId">
+		<div ng-show="success == true" class="">
+			<h2 class="centered-text">Your application: ID={{app.application._appId}}</h2>
+			<div class="row">
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<h3>Application information</h3>
+					<div ng-if="currentStatus == 'APP_SUBMITTED_NOT_PROCESSED'">
+						<!-- can be updated and cancelled, no archive here -->
+
+						<form ng-submit="" role="form">
+							<div class="row">
+								<div class="col-xs-4">
+									<button type="submit" class="btn btn-sm btn-success">Update your application</button>
+								</div>
+								<div class="col-xs-4">
+									<a href="" class="btn btn-sm btn-danger">Cancel application</a>
+								</div>
+								<div class="col-xs-4">
+									<a href="" class="btn btn-sm btn-info">Apply for another job</a>
+								</div>
+							</div>
+							<div class="form-group">
+								<label>Your full name:</label>
+								<input type="text" name="fullName" class="form-control" id="" placeholder="Your full name" required="true" ng-model="app.application.fullName"></div>
+							<div class="form-group">
+								<label>Your driver license number:</label>
+								<input type="text" name="driverLicenseNumber" class="form-control" id="" placeholder="Your driver license number" required="true" ng-model="app.application.driverLicenseNumber"></div>
+							<div class="form-group">
+								<label>Your post code:</label>
+								<input type="text" name="postCode" class="form-control" id="" placeholder="Your post code" required="true" ng-model="app.application.postCode"></div>
+							<div class="form-group">
+								<label>Your cover letter:</label>
+								<textarea name="textCoverLetter" id="input" class="form-control" rows="3" ng-model="app.application.textCoverLetter"></textarea>
+							</div>
+							<div class="form-group">
+								<label>Your brief resume:</label>
+								<textarea name="textBriefResume" id="input" class="form-control" rows="3" ng-model="app.application.textBriefResume"></textarea>
+							</div>
+							<h4>Application status:</h4>
+							<h5>{{app.application.status}}</h5>
+						</form>
+
+					</div>
+					<div ng-if="currentStatus != 'APP_SUBMITTED_NOT_PROCESSED'">
+						<h4>Full name:</h4>
+						<p>{{app.application.fullName}}</p>
+						<h4>Driver license number:</h4>
+						<p>{{app.application.driverLicenseNumber}}</p>
+						<h4>Post code:</h4>
+						<p>{{app.application.postCode}}</p>
+						<h4>Application status:</h4>
+						<h5>{{currentStatus}}</h5>
+						<h4>Cover letter:</h4>
+						<p ng-if="app.application.textCoverLetter != ''">{{app.application.textCoverLetter}}</p>
+						<p ng-if="app.application.textCoverLetter == ''">(No cover letter submitted)</p>
+						<h4>Brief resume:</h4>
+						<p ng-if="app.application.textBriefResume != ''">{{app.application.textBriefResume}}</p>
+						<p ng-if="app.application.textBriefResume == ''">(No brief resume submitted)</p>
+						<div ng-if="currentStatus == 'APP_INTERVIEW_PASSED' || currentStatus == 'APP_INTERVIEW_FAILED' || currentStatus == 'APP_REJECTED_BY_CANDIDATE' || currentStatus == 'APP_NOT_SHORTLISTED' || currentStatus == 'APP_CANCELLED'">
+							<h5 class="text-success" ng-if="currentStatus == 'APP_INTERVIEW_PASSED'">Congratulations! You have passed the interview and finalised all the job application procedure. Please wait for further contact.</h5>
+							<h5 class="text-danger" ng-if="currentStatus == 'APP_INTERVIEW_FAILED'">We apologise that you have not passed the interview process.</h5>
+							<h4 class="text-info">
+								Your application has been finalised. You can click the following button to <strong>ARCHIVE</strong>
+								it. (cannot be undone)
+							</h4>
+							<a href="" class="btn btn-sm btn-primary">Archive application</a>
+						</div>
+						<div ng-if="currentStatus == 'APP_AUTO_PROCESSED' || currentStatus == 'APP_REVIEWING' || currentStatus == 'APP_REVIEWED' || currentStatus == 'APP_SHORTLISTED' || currentStatus == 'APP_ACCEPTED_BY_CANDIDATE' || currentStatus == 'APP_ARCHIVED'">
+							<h4 class="text-warning">
+								Your application is in a status of processing or already archived. You can only view your application now.
+							</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+					<h3>Job information - {{job.jobPosting.title}}</h3>
+					<h4>Author:</h4>
+					<p>{{job.jobPosting._uId}}</p>
+					<h4>Salary rate:</h4>
+					<p>{{job.jobPosting.salaryRate}}</p>
+					<h4>Position type:</h4>
+					<p>{{job.jobPosting.positionType}}</p>
+					<h4>Closing time:</h4>
+					<p>{{job.jobPosting.closingTime}}</p>
+					<h4>Job details:</h4>
+					<p>{{job.jobPosting.details}}</p>
+					<h4>Job status:</h4>
+					<h5>{{job.jobPosting.status}}</h5>
+				</div>
+			</div>
+		</div>
+		<div ng-show="success == false" class="">
+			<div class="bg-danger result-msg centered-text">
+				<h5>{{message}}</h5>
+				<h3 class="text-danger">{{errCode}}</h3>
+			</div>
+		</div>
+	</div>
+</div>

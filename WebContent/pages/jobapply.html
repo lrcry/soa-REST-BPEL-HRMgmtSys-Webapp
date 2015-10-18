@@ -44,7 +44,7 @@
 		</div>
 	</form>
 	<!-- <div id="apply-message" class="" ng-show="applyResult">{{applyResult}}</div> -->
-	<div ng-show="success == true">
+	<div ng-show="success == true" class="animated fadeIn">
 		<div class="bg-success result-msg centered-text">
 			<h5>{{message}}</h5>
 			<h3 class="text-success">{{_applyIdNew}}</h3>
@@ -63,7 +63,7 @@
 			
 		</div>
 	</div>
-	<div ng-show="success == false">
+	<div ng-show="success == false" class="animated fadeIn">
 		<div class="bg-danger result-msg centered-text">
 			<h5>{{message}}</h5>
 			<h3 class="text-danger">{{errCode}}</h3>
