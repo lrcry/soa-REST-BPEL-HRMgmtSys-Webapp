@@ -1,0 +1,73 @@
+<div class="container animated fadeIn">
+	<form ng-submit="processApply()" method="POST" role="form">
+		<div class="row centered-text">
+			<h1>Apply for a job</h1>
+			<hr class="title-hr"/>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="form-group">
+					<input type="text" name="fullName" class="form-control" id="" placeholder="Your name" ng-model="jobApply.fullName" required="true"></div>
+			</div>
+
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="form-group">
+
+					<input type="text" name="driverLicenseNumber" class="form-control" id="" placeholder="Your driver license number" ng-model="jobApply.driverLicenseNumber" required="true"></div>
+			</div>
+
+			<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+				<div class="form-group">
+					<input type="text" name="postCode" class="form-control" id="" placeholder="Your post code" ng-model="jobApply.postCode" required="true"></div>
+			</div>
+
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h3 class="centered-text">Your cover letter in text</h3>
+				<textarea name="textCoverLetter" id="input" class="form-control" rows="3" ng-model="jobApply.textCoverLetter"></textarea>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h3 class="centered-text">Your brief resume in text</h3>
+				<textarea name="textBriefResume" id="input" class="form-control" rows="3" ng-model="jobApply.textBriefResume"></textarea>
+			</div>
+		</div>
+
+		<input type="hidden" name="_jobId" ng-model="jobApply._jobId" value="{{jobId}}">
+
+		<div class="centered-text">
+			<button type="submit" class="btn btn-primary">Submit</button>
+		</div>
+	</form>
+	<!-- <div id="apply-message" class="" ng-show="applyResult">{{applyResult}}</div> -->
+	<div ng-show="success == true">
+		<div class="bg-success result-msg centered-text">
+			<h5>{{message}}</h5>
+			<h3 class="text-success">{{_applyIdNew}}</h3>
+			<div class="row">
+				<div class="col-xs-4"></div>
+				<div class="col-xs-2">
+					<a href="/hrmgmtsysweb" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Find another job</a>
+				</div>
+				<div class="col-xs-2">
+					<a ng-href="/hrmgmtsysweb/application/{{_applyIdNew}}" class="btn btn-sm btn-default"><i class="fa fa-file-text"></i> View your application</a>
+				</div>
+				<div class="col-xs-4">
+					
+				</div>
+			</div>
+			
+		</div>
+	</div>
+	<div ng-show="success == false">
+		<div class="bg-danger result-msg centered-text">
+			<h5>{{message}}</h5>
+			<h3 class="text-danger">{{errCode}}</h3>
+			<a href="/hrmgmtsysweb" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Find another job</a>
+		</div>
+	</div>
+</div>

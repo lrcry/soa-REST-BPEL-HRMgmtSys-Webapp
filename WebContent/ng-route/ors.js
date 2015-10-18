@@ -44,6 +44,10 @@ orsApp.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'pages/viewapp.html',
 		controller: 'ViewApplicationController',
 		css: 'css/page.css'
+	}).when('/apply/:_jobId', {
+		templateUrl: 'pages/jobapply.html',
+		controller: 'JobApplyController',
+		css: 'css/page.css'
 	}).otherwise({
 		redirectTo: '/'
 	})

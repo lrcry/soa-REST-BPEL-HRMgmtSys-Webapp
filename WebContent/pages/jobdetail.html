@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container wow animated fadeIn">
 	<div class="row centered-text">
 		<h1>{{jobPosting.title}}</h1>
 		<hr class="title-hr"/>
@@ -6,11 +6,11 @@
 			<button type="button" class="btn btn-primary disabled">Job application closed</button>
 		</div>
 		<div ng-if="jobPosting.status != 'ARCHIVED'">
-			<a type="button" class="btn btn-primary" href="">Apply for this job</a>
+			<a type="button" class="btn btn-primary" href="apply/{{jobPosting._jobId}}">Apply for this job</a>
 		</div>
 	</div>
 </div>
-<div class="container jobdetail-wrapper">
+<div class="container wow animated fadeIn jobdetail-wrapper">
 	<div class="row">
 		<div class="col-xs-6">
 			<div class="row">
@@ -38,7 +38,7 @@
 				</div>
 				<div class="col-xs-3">
 					<p>
-						<!-- Job created by -->
+						<a href="users/{{jobPosting._uId}}">Manager</a>
 					</p>
 				</div>
 				<div class="col-xs-3">
