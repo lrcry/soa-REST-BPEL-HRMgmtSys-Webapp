@@ -284,16 +284,24 @@ orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$rou
 	$http.get(
 		'//localhost:8080/HRMgmtSysREST/jobapplications/' + $scope.checkedAppId
 	).success(function(data) {
+		var autoCheckData = {
+			"driverLicenseNumber": data.application.driverLicenseNumber,
+			"fullName": data.application.fullName,
+			"postCode": data.application.postCode
+		};
+		console.log(autoCheckData);
+
 		$http({
 			method: 'POST',
 			url: '//localhost:8080/HRMgmtSysREST/autocheck',
-			data: {
-				"driverLicenseNumber": data.application.driverLicenseNumber,
-				"fullName": data.application.fullName,
-				"postCode": data.application.postCode
-			}
+			data: autoCheckData
 		}).success(function(checkResult){
 			$scope.checkResult = checkResult;
+			$scope.success = true;
+		}).error(function(err) {
+			$scope.errCode = err.errCode;
+			$scope.errMessage = err.errMessage;
+			$scope.success = false;
 		});
 	});
 }])
