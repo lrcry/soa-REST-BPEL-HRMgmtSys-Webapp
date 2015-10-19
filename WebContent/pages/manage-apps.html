@@ -50,10 +50,10 @@
 				</div>
 				<div ng-if="app.application.status == 'APP_REVIEWED'">
 					<div class="col-xs-3">
-						<a type="button" class="btn btn-default btn-dashboard">List</a>
+						<a ng-href="app-shortlist/{{app.application._appId}}/list" type="button" class="btn btn-default btn-dashboard">List</a>
 					</div>
 					<div class="col-xs-3">
-						<a type="button" class="btn btn-default btn-dashboard">Unlist</a>
+						<a ng-href="app-shortlist/{{app.application._appId}}/unlist" type="button" class="btn btn-default btn-dashboard">Unlist</a>
 					</div>
 				</div>
 				<div ng-if="app.application.status != 'APP_REVIEWED'">

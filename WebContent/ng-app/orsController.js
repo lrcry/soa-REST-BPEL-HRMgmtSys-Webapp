@@ -266,7 +266,7 @@ orsCtrler.controller('ManageAppDetailController', ['$http', '$scope', '$window',
 }])
 
 /**
- *
+ * Application auto check controller
  */
 orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$routeParams', '$rootScope',
 	function($http, $scope, $window, $routeParams, $rootScope){
@@ -298,6 +298,7 @@ orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$rou
 		}).success(function(checkResult){
 			$scope.checkResult = checkResult;
 			$scope.success = true;
+			$scope.checkData = autoCheckData;
 			console.log('check result: ' + $scope.checkResult.pdvResult + ' ' + $scope.checkResult.crvResult);
 		}).error(function(err) {
 			$scope.errCode = err.errCode;
@@ -305,6 +306,45 @@ orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$rou
 			$scope.success = false;
 		});
 	});
+}])
+
+/**
+ * Application shortlist controller
+ */
+orsCtrler.controller('ShortlistController', ['$http', '$scope', '$window', '$routeParams', '$rootScope',
+	function($http, $scope, $window, $routeParams, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	var shortListUrl = '//localhost:8080/HRMgmtSysREST/jobapplications/status/' 
+						+ $routeParams._appId + '?status=';
+	$scope.shortListAction = '';
+	if ($routeParams.action == 'list') {
+		shortListUrl += 'APP_SHORTLISTED';
+		$scope.shortListAction = 'shortlist';
+	} else if ($routeParams.action == 'unlist') {
+		shortListUrl += 'APP_NOT_SHORTLISTED';
+		$scope.shortListAction = 'unshortlist';
+	}
+
+	$http({
+		method: 'PUT',
+		url: shortListUrl,
+	}).success(function(data) {
+		$scope.success = true;
+		$scope._appId = data.application._appId;
+	}).error(function(err) {
+		$scope.success = false;
+		$scope.errCode = err.errCode;
+		$scope.errMessage = err.errMessage;
+	});	
 }])
 
 /*********************************************************************************

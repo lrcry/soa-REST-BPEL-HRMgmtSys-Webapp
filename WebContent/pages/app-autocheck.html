@@ -3,6 +3,12 @@
 		<h1>Auto checking candidate identity</h1>
 		<hr class="title-hr"/>
 	</div>
+	<div class="row centered-text">
+		<h3>Information for check:</h3>
+		<p><strong>Full name:</strong> {{checkData.fullName}}</p>
+		<p><strong>Post code:</strong> {{checkData.postCode}}</p>
+		<p><strong>Driver license number:</strong> {{checkData.driverLicenseNumber}}</p>
+	</div>
 	<div class="row centered-text" ng-show="success == true">
 		<h3>Auto check result of application (ID={{checkedAppId}})</h3>
 		<h4>PDV result</h4>
@@ -15,5 +21,6 @@
 		<h4>Auto check failed to execute due to the following reason:</h4>
 		<p>{{errMessage}}</p>
 		<h3 class="text-danger">{{errCode}}</h3>
+		<a ng-href="manage-viewapp/{{checkedAppId}}" type="button" class="btn btn-default">View applicaiton</a>
 	</div>
 </div>

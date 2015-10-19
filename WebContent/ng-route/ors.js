@@ -100,6 +100,10 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl: 'pages/app-autocheck.html',
 		controller: 'AutoCheckController',
 		css: 'css/page.css'
+	}).when('/app-shortlist/:_appId/:action', {
+		templateUrl: 'pages/app-shortlist.html',
+		controller: 'ShortlistController',
+		css: 'css/page.css'
 	})
 	/**
 	 * Job postings route

@@ -1,0 +1,16 @@
+<div class="container animated fadeIn">
+	<div class="row centered-text">
+		<h1>Application {{shortListAction}} result</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row centered-text bg-success" ng-show="success == true">
+		<h3>Application {{shortListAction}}ed! ID=[{{_appId}}]</h3>
+		<a ng-href="manage-viewapp/{{_appId}}" type="button" class="btn btn-default">View applicaiton</a>
+	</div>
+	<div class="row centered-text bg-danger message-info" ng-show="success == false">
+		<h4>Auto check failed to execute due to the following reason:</h4>
+		<p>{{errMessage}}</p>
+		<h3 class="text-danger">{{errCode}}</h3>
+		<a ng-href="manage-viewapp/{{_appId}}" type="button" class="btn btn-default">View applicaiton</a>
+	</div>
+</div>
