@@ -40,7 +40,7 @@ public class UserController {
 			str = new String();
 		}
 		String sessionId = session.getId();
-		System.out.println(sessionId);
+		System.out.println(session.getAttribute("_uid"));
 		if (HttpStatus.OK == response.getStatusCode()) {
 			// userId exists
 			if (response.getBody().getUserWrapper().get_pwd().equals(password)) {
@@ -50,6 +50,7 @@ public class UserController {
 				result.setErrCode("");
 				result.setErrMessage("");
 				result.setSessionId(sessionId);
+				session.setAttribute("_uid", username);
 				return new ResponseEntity<LoginResult>(result, HttpStatus.OK);
 			}
 			else {
