@@ -242,6 +242,62 @@ orsCtrler.controller('ManageAppController', ['$http', '$scope', '$window', '$rou
 	
 }])
 
+/**
+ * Manager view app details
+ */
+orsCtrler.controller('ManageAppDetailController', ['$http', '$scope', '$window', '$routeParams', '$rootScope', 
+	function($http, $scope, $window, $routeParams, $rootScope){
+	$http.get(
+		'//localhost:8080/HRMgmtSysREST/jobapplications/' + $routeParams._appId
+	).success(function(data) {
+		$scope.success = true;
+		$scope.app = data;
+		$http.get(
+			'//localhost:8080/HRMgmtSysREST/jobPostings/' + data.application._jobId
+		).success(function(jobData) {
+			$scope.job = jobData;
+		});
+	}).error(function(err) {
+		$scope.success = false;
+		$scope.message = "Failed to view application. Reason: " + err.errMessage;
+		$scope.errCode = err.errCode;
+	});	
+	
+}])
+
+/**
+ *
+ */
+orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$routeParams', '$rootScope',
+	function($http, $scope, $window, $routeParams, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	$scope.checkedAppId = $routeParams._appId;
+	$http.get(
+		'//localhost:8080/HRMgmtSysREST/jobapplications/' + $scope.checkedAppId
+	).success(function(data) {
+		$http({
+			method: 'POST',
+			url: '//localhost:8080/HRMgmtSysREST/autocheck',
+			data: {
+				"driverLicenseNumber": data.application.driverLicenseNumber,
+				"fullName": data.application.fullName,
+				"postCode": data.application.postCode
+			}
+		}).success(function(checkResult){
+			$scope.checkResult = checkResult;
+		});
+	});
+}])
+
 /*********************************************************************************
  * User sign in/out controller methods
  *********************************************************************************/

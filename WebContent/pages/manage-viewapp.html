@@ -1,0 +1,56 @@
+<div class="container wow animated fadeIn">
+	<div class="row centered-text">
+		<h1>View application ID</h1>
+		<hr class="title-hr"/>
+	</div>
+
+	<div ng-show="success == true" class="">
+		<a ng-href="dashboard-manager" type="button" class="btn btn-default">Back to dashboard</a>
+		<div class="row">
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<h3>Application information</h3>
+
+				<!-- Application info -->
+				<h4>Application ID:</h4>
+				<p>{{app.application._appId}}</p>
+				<h4>Full name:</h4>
+				<p>{{app.application.fullName}}</p>
+				<h4>Driver license number:</h4>
+				<p>{{app.application.driverLicenseNumber}}</p>
+				<h4>Post code:</h4>
+				<p>{{app.application.postCode}}</p>
+				<h4>Application status:</h4>
+				<h5>{{currentStatus}}</h5>
+				<h4>Cover letter:</h4>
+				<p ng-if="app.application.textCoverLetter != ''">{{app.application.textCoverLetter}}</p>
+				<p ng-if="app.application.textCoverLetter == ''">(No cover letter submitted)</p>
+				<h4>Brief resume:</h4>
+				<p ng-if="app.application.textBriefResume != ''">{{app.application.textBriefResume}}</p>
+				<p ng-if="app.application.textBriefResume == ''">(No brief resume submitted)</p>
+				<!-- buttons -->
+
+			</div>
+			<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+				<h3>Job information - {{job.jobPosting.title}}</h3>
+				<h4>Author:</h4>
+				<p>{{job.jobPosting._uId}}</p>
+				<h4>Salary rate:</h4>
+				<p>{{job.jobPosting.salaryRate}}</p>
+				<h4>Position type:</h4>
+				<p>{{job.jobPosting.positionType}}</p>
+				<h4>Closing time:</h4>
+				<p>{{job.jobPosting.closingTime}}</p>
+				<h4>Job details:</h4>
+				<p>{{job.jobPosting.details}}</p>
+				<h4>Job status:</h4>
+				<h5>{{job.jobPosting.status}}</h5>
+			</div>
+		</div>
+	</div>
+	<div ng-show="success == false" class="">
+		<div class="bg-danger result-msg centered-text">
+			<h5>{{message}}</h5>
+			<h3 class="text-danger">{{errCode}}</h3>
+		</div>
+	</div>
+</div>

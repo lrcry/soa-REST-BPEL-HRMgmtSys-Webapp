@@ -92,6 +92,14 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl: 'pages/manage-apps.html',
 		controller: 'ManageAppController',
 		css: 'css/page.css'
+	}).when('/manage-viewapp/:_appId', {
+		templateUrl: 'pages/manage-viewapp.html',
+		controller: 'ManageAppDetailController',
+		css: 'css/page.css'
+	}).when('/app-autocheck/:_appId', {
+		templateUrl: 'pages/app-autocheck.html',
+		controller: 'AutoCheckController',
+		css: 'css/page.css'
 	})
 	/**
 	 * Job postings route
