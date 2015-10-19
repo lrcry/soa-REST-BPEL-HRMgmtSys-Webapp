@@ -290,7 +290,7 @@ orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$rou
 			"postCode": data.application.postCode
 		};
 		console.log(autoCheckData);
-
+		console.log('accessing url for bpel check: //localhost:8080/HRMgmtSysREST/autocheck');
 		$http({
 			method: 'POST',
 			url: '//localhost:8080/HRMgmtSysREST/autocheck',
@@ -298,6 +298,7 @@ orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$rou
 		}).success(function(checkResult){
 			$scope.checkResult = checkResult;
 			$scope.success = true;
+			console.log('check result: ' + $scope.checkResult);
 		}).error(function(err) {
 			$scope.errCode = err.errCode;
 			$scope.errMessage = err.errMessage;
