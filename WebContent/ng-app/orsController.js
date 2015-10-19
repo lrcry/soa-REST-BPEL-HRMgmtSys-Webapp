@@ -298,7 +298,7 @@ orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$rou
 		}).success(function(checkResult){
 			$scope.checkResult = checkResult;
 			$scope.success = true;
-			console.log('check result: ' + $scope.checkResult);
+			console.log('check result: ' + $scope.checkResult.pdvResult + ' ' + $scope.checkResult.crvResult);
 		}).error(function(err) {
 			$scope.errCode = err.errCode;
 			$scope.errMessage = err.errMessage;

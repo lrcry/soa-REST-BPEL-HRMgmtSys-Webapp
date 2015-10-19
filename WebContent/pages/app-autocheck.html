@@ -6,9 +6,9 @@
 	<div class="row centered-text" ng-show="success == true">
 		<h3>Auto check result of application (ID={{checkedAppId}})</h3>
 		<h4>PDV result</h4>
-		<p>{{pdvResult}}</p>
+		<p>{{checkResult.pdvResult}}</p>
 		<h4>CRV result</h4>
-		<p>{{crvResult}}</p>
+		<p>{{checkResult.crvResult}}</p>
 		<a ng-href="manage-viewapp/{{checkedAppId}}" type="button" class="btn btn-default">View applicaiton</a>
 	</div>
 	<div class="row centered-text bg-danger message-info" ng-show="success == false">
