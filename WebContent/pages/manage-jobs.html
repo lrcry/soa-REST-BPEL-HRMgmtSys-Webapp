@@ -1,17 +1,25 @@
 <div class="container job-item-list no-padding-right">
-	<div class="row  wow animated fadeIn" ng-repeat="job in jobPostings">
-		<div class="col-xs-12 job-item" ng-if="job.jobPosting.status != 'ARCHIVED'">
+	<div class="row job-item wow animated fadeIn" ng-repeat="job in jobPostings">
+		<div class="col-xs-12" ng-if="globalLoggedUser._uid == job.jobPosting._uId">
 			<div class="row">
 				<div class="col-xs-8">
 					<h4>{{job.jobPosting.title}}</h4>
 				</div>
+
 				<div class="col-xs-1">
-					<a href="job/{{job.jobPosting._jobId}}" class="btn btn-default">Details</a>
+					<a href="job/{{job.jobPosting._jobId}}" class="btn btn-default btn-job">Job details</a>
+				</div>
+				<div class="col-xs-1" ng-if="job.jobPosting.status != 'ARCHIVED'">
+					<a href="update-job" class="btn btn-primary btn-job">Update job</a>
+				</div>
+				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-if="job.jobPosting.status == 'ARCHIVED'">
+					<p class="btn bg-closed btn-job">Archived</p>
 				</div>
 				<div class="col-xs-1">
-					<a href="apply/{{job.jobPosting._jobId}}" class="btn btn-primary">Apply</a>
+					<a ng-href="manage-apps/{{job.jobPosting._jobId}}" type="button" class="btn btn-success">Applications</a>
 				</div>
-				<div class="col-xs-2"></div>
+				<div class="col-xs-1"></div>
+				
 			</div>
 			<div class="row">
 				<div class="col-xs-2">

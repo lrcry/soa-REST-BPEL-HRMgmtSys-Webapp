@@ -31,7 +31,7 @@
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular-route.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular-sanitize.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.28/angular-resource.min.js"></script>
-	
+
 	<script src="//cdnjs.cloudflare.com/ajax/libs/wow/1.1.2/wow.min.js"></script>
 
 	<!-- Angular controller -->
@@ -55,8 +55,8 @@
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			
 			<ul class="nav navbar-nav navbar-right" ng-show="login == true">
-				<li><a>Login as: {{globalUid}}</a></li>
-				<li><a ng-href="logout/{{globalUid}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+				<li><a ng-href="dashboard-manager">G'day, {{globalLoggedUser.firstName}} {{globalLoggedUser.lastName}} ({{globalLoggedUser.shortKey}})</a></li>
+				<li><a ng-href="logout/{{globalLoggedUser._uid}}"><i class="fa fa-sign-out"></i> Logout</a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->
 	</nav>
@@ -69,7 +69,10 @@
 				<a href="viewapp"><h5 class="hvr-grow"><i class="fa fa-book"></i> View my application</h5></a>
 				<!-- Login control -->
 				<a href="login" ng-show="login == false"><h5 class="hvr-grow"><i class="fa fa-sign-in"></i> Manager / Hire teams entrance</h5></a>
-				<a href="dashboard" ng-show="login == true"><h5 class="hvr-grow"><i class="fa fa-sign-in"></i> Manager / Hire teams entrance</h5></a>
+				<div ng-show="login == true">
+					<a ng-href="dashboard-manager" ng-show="globalLoggedUser.role == 'manager'"><h5 class="hvr-grow"><i class="fa fa-dashboard"></i> Manager Dashboard</h5></a>
+					<a ng-href="dashboard-reviewer" ng-show="globalLoggedUser.role == 'reviewer'"><h5 class="hvr-grow"><i class="fa fa-dashboard"></i> Reviewer Dashboard</h5></a>
+				</div>
 				<!-- <a href=""><h4></h4></a> -->
 			</div>
 			<div class="col-xs-10 no-padding-left no-padding-right">

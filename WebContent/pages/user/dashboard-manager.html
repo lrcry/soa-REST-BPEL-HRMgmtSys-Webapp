@@ -1,0 +1,58 @@
+<div class="container animated fadeIn">
+	<div class="row centered-text">
+		<h1>Manager dashboard</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 ">
+			<h3>User profile</h3>
+			<div class="user-profile">
+				<div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>User ID:</h4>
+						<p>{{globalLoggedUser._uid}}</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>User short key:</h4>
+						<p>{{globalLoggedUser.shortKey}}</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Role:</h4>
+						<p>{{globalLoggedUser.role}}</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>First name:</h4>
+						<p>{{globalLoggedUser.firstName}}</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Last name:</h4>
+						<p>{{globalLoggedUser.lastName}}</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Department:</h4>
+						<p>{{globalLoggedUser.department}}</p>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="col-xs-6">
+			<h3>Operations</h3>
+			<div class="row">
+				<div class="col-xs-4">
+					<a ng-href="manage-jobs" class="btn btn-success btn-dashboard">Manage jobs</a>
+				</div>
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"></div>
+			</div>
+			<div class="row">
+				<div class="col-xs-4">
+					<a ng-href="manage-apps/all" class="btn btn-primary btn-dashboard">Manage applications</a>
+				</div>
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8"></div>
+			</div>
+		</div>
+	</div>
+
+</div>

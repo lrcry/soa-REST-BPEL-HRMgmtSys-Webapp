@@ -11,13 +11,13 @@ orsCtrler.controller('HomeController', ['$http', '$scope', '$window', '$document
 	function($http, $scope, $window, $document, $rootScope){
 	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
 		$rootScope.login = false;
-		$rootScope.globalUid = '';
+		$rootScope.globalLoggedUser = {};
 	} else {
 		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
 		$rootScope.login = loginstatus["login"];
-		$rootScope.globalUid = loginstatus["_uId"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
 	}
-	console.log($rootScope.login + ' ' + $rootScope.globalUid);
+	console.log($rootScope.globalLoggedUser);
 	$http.get(
 		'//localhost:8080/HRMgmtSysREST/jobPostings'
 	).success(function(data) {
@@ -213,6 +213,35 @@ orsCtrler.controller('ArchiveApplicationController', ['$http', '$scope', '$route
 	});
 }])
 
+/**
+ * Manager manage application controller
+ */
+orsCtrler.controller('ManageAppController', ['$http', '$scope', '$window', '$routeParams', '$rootScope',
+	function($http, $scope, $window, $routeParams, $rootScope){
+	// authorised user behaviour
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+	
+	var appUrl = '//localhost:8080/HRMgmtSysREST/jobapplications';
+	if ($routeParams._jobId != 'all') { // if a job id is not 'all', get apps for this job id
+		appUrl += '?_jobId=' + $routeParams._jobId;
+	} else { // otherwise get all applications
+		;
+	}
+
+	$http.get(appUrl).success(function(data) {
+		$scope.apps = data;
+	});
+	
+}])
+
 /*********************************************************************************
  * User sign in/out controller methods
  *********************************************************************************/
@@ -233,10 +262,10 @@ orsCtrler.controller('LoginController', ['$http', '$scope', '$window', '$documen
 				$scope.success = true;
 				var loginResultJson = {
 					login: true,
-					_uId: $scope.loginModel._uId
+					loggedUser: data.user
 				}
 				$window.sessionStorage.setItem('loginstatus', JSON.stringify(loginResultJson));
-				$scope.uIdLoggedIn = userId;
+				$scope.loggedUser = data.user;
 				$timeout(function() {
 					$window.location.href = 'index.html';
 				}, 3000);
@@ -274,6 +303,25 @@ orsCtrler.controller('LogoutController', ['$http', '$scope', '$routeParams', '$r
 	}, 3000);
 }])
 
+orsCtrler.controller('ReviewerDashboardController', ['$http', '$scope', '$window', '$rootScope',
+	function($http, $scope){
+	alert("reviewer not implemented");
+}])
+
+orsCtrler.controller('ManagerDashboardController', ['$http', '$scope', '$window', '$rootScope',
+	function($http, $scope, $window, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+		return;
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+	console.log($rootScope.globalLoggedUser);
+}])
 /*********************************************************************************
  * Job posting controller methods
  *********************************************************************************/
@@ -321,4 +369,29 @@ orsCtrler.controller('SearchJobController', ['$http', '$scope', '$routeParams',
 			console.log(err);
 		});
 	}
+}])
+
+/**
+ * Manage jobs controller
+ */
+orsCtrler.controller('ManageJobsController', ['$http', '$scope', '$window', '$rootScope', 
+	function($http, $scope, $window, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+	console.log($rootScope.globalLoggedUser);
+	console.log("managing jobs");
+	$http.get(
+		'//localhost:8080/HRMgmtSysREST/jobPostings?_uId=' + $rootScope.globalLoggedUser._uid
+	).success(function(data) {
+		$scope.jobPostings = data;
+		$scope.isHomePage = false;
+		console.log($scope.isHomePage);
+	});
 }])

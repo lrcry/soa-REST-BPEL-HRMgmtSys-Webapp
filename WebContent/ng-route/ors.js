@@ -76,6 +76,22 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl: 'pages/user/usersign.html',
 		controller: 'LogoutController',
 		css: 'css/page.css'
+	}).when('/dashboard-reviewer', {
+		templateUrl: 'pages/user/dashboard-reviewer.html',
+		controller: 'ReviewerDashboardController',
+		css: 'css/page.css'
+	}).when('/dashboard-manager', {
+		templateUrl: 'pages/user/dashboard-manager.html',
+		controller: 'ManagerDashboardController',
+		css: 'css/page.css'
+	}).when('/manage-jobs', {
+		templateUrl: 'pages/manage-jobs.html',
+		controller: 'ManageJobsController',
+		css: 'css/page.css'
+	}).when('/manage-apps/:_jobId', {
+		templateUrl: 'pages/manage-apps.html',
+		controller: 'ManageAppController',
+		css: 'css/page.css'
 	})
 	/**
 	 * Job postings route

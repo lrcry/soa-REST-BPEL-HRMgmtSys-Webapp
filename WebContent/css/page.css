@@ -2,12 +2,12 @@ body {
 	background-color: #eeeeee;
 }
 
-.job-item-list {
+.job-item-list, .app-item-list {
 	margin-left: 0;
 	margin-right: 0;
 }
 
-.job-item {
+.job-item, .app-item {
 	-webkit-transition: .5s;
 	-moz-transition: .5s;
 	-ms-transition: .5s;
@@ -18,7 +18,12 @@ body {
 	padding-left: 14px;
 }
 
-.job-item:hover {
+.app-item {
+	border-top: 1px solid #333333;
+	border-bottom: 1px solid #333333;
+}
+
+.job-item:hover, .app-item:hover {
 	background-color: #ffffff;
 }
 
@@ -56,4 +61,20 @@ body {
 .usersign-info {
 	padding-top: 20px;
 	padding-bottom: 20px;
+}
+
+.user-profile {
+	border: 1px solid #333333;
+	padding: 16px 16px;
+}
+
+.btn-dashboard {
+	/*margin-top: 10px;*/
+	margin-bottom: 10px;
+	width: 100%;
+}
+
+.bg-closed {
+	background-color: #666666;
+	color: #ffffff;
 }
