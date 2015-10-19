@@ -56,6 +56,10 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl: 'pages/appoperation.html',
 		controller: 'CancelApplicationController',
 		css: 'css/page.css'
+	}).when('/dointerview/:_appId/:action', {
+		templateUrl: 'pages/appoperation.html',
+		controller: 'DoInterviewController',
+		css: 'css/page.css'
 	}).when('/archiveapp/:_appId', {
 		templateUrl: 'pages/appoperation.html',
 		controller: 'ArchiveApplicationController',

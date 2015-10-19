@@ -53,7 +53,23 @@
 					<p ng-if="app.application.textBriefResume == ''">(No brief resume submitted)</p>
 					<!-- buttons -->
 					<div ng-if="currentStatus != 'APP_SUBMITTED_NOT_PROCESSED'">
-
+						<div ng-if="currentStatus == 'APP_SHORTLISTED'">
+							<h5 class="text-success">Your application has already been shortlisted. We sincerely hope that you can accept our invitation of an interview session.</h5>
+							<div class="row">
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									
+								</div>
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									<a ng-href="dointerview/{{app.application._appId}}/accept" class="btn btn-sm btn-success">Accept invitation</a>
+								</div>
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									<a ng-href="dointerview/{{app.application._appId}}/reject" class="btn btn-sm btn-danger">Reject invitation</a>
+								</div>
+								<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+									
+								</div>
+							</div>
+						</div>
 						<div ng-if="currentStatus == 'APP_INTERVIEW_PASSED' || currentStatus == 'APP_INTERVIEW_FAILED' || currentStatus == 'APP_REJECTED_BY_CANDIDATE' || currentStatus == 'APP_NOT_SHORTLISTED' || currentStatus == 'APP_CANCELLED'">
 							<h5 class="text-success" ng-if="currentStatus == 'APP_INTERVIEW_PASSED'">
 								Congratulations! You have passed the interview and finalised all the job application procedure. Please wait for further contact.
@@ -65,7 +81,7 @@
 							</h4>
 							<a ng-href="archiveapp/{{app.application._appId}}" class="btn btn-sm btn-primary">Archive application</a>
 						</div>
-						<div ng-if="currentStatus == 'APP_AUTO_PROCESSED' || currentStatus == 'APP_REVIEWING' || currentStatus == 'APP_REVIEWED' || currentStatus == 'APP_SHORTLISTED' || currentStatus == 'APP_ACCEPTED_BY_CANDIDATE' || currentStatus == 'APP_ARCHIVED'">
+						<div ng-if="currentStatus == 'APP_AUTO_PROCESSED' || currentStatus == 'APP_REVIEWING' || currentStatus == 'APP_REVIEWED' || currentStatus == 'APP_ACCEPTED_BY_CANDIDATE' || currentStatus == 'APP_ARCHIVED'">
 							<h4 class="text-warning">
 								Your application is in a status of processing or already archived. You can only view your application now.
 							</h4>

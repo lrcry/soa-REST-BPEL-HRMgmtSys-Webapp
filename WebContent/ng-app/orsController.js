@@ -153,6 +153,37 @@ orsCtrler.controller('CancelApplicationController', ['$http', '$scope', '$routeP
 }])
 
 /**
+ * Accept / reject application interview controller
+ */
+orsCtrler.controller('DoInterviewController', ['$http', '$scope', '$routeParams', 
+	function($http, $scope, $routeParams) {
+	var invitationAction = $routeParams.action;
+	var inviteAppId = $routeParams._appId;
+	var operationUrl = '//localhost:8080/HRMgmtSysREST/jobapplications/status/' 
+							+ inviteAppId + '?status=';
+	if (invitationAction === 'accept') {
+		$scope.operationName = "Accept invitation";
+		operationUrl += 'APP_ACCEPTED_BY_CANDIDATE';
+	} else if (invitationAction === 'reject') {
+		$scope.operationName = "Reject invitation";
+		operationUrl += 'APP_REJECTED_BY_CANDIDATE';
+	}
+
+	console.log(operationUrl);
+	$http({
+		method: 'PUT',
+		url: operationUrl
+	}).success(function(data) {
+		$scope.success = true;
+		$scope.operatedApp = data;
+	}).error(function(err) {
+		$scope.success = false;
+		$scope.errCode = err.errCode;
+		$scope.errMessage = err.errMessage;
+	});
+}])
+
+/**
  * Archive application controller
  */
 orsCtrler.controller('ArchiveApplicationController', ['$http', '$scope', '$routeParams',
@@ -162,7 +193,6 @@ orsCtrler.controller('ArchiveApplicationController', ['$http', '$scope', '$route
 	$http({
 		method: 'DELETE',
 		url: '//localhost:8080/HRMgmtSysREST/jobapplications/' + $routeParams._appId
-		// headers: {'X-HTTP-Method-Override': 'PATCH'}
 	}).success(function(data) {
 		$scope.success = true;
 		$scope.operatedApp = data;
