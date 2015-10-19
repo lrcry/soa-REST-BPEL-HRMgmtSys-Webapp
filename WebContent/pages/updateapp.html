@@ -1,0 +1,66 @@
+<div class="container">
+	<div class="row centered-text">
+		<h1>Update your application</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row bg-success" ng-show="success == true">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<p>Update succeeded. <a type="button" ng-href="viewapp" class="btn btn-primary">View your application by ID</a></p>
+		</div>
+	</div>
+	<div class="row bg-danger" ng-show="success == false">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<p>Update failed ({{errCode}}).</p>
+			<p>Message: {{errMessage}}</p>
+		</div>
+	</div>
+	<div class="row">
+		<form ng-submit="updateApp()">
+			<div class="form-group col-xs-4">
+				<label>Application ID:</label>
+				<p>{{app.application._appId}}</p>
+			</div>
+			<div class="form-group col-xs-4">
+				<label>Application status:</label>
+				<p>{{app.application.status}}</p>
+			</div>
+			<div class="form-group col-xs-4">
+				<label>Job applying for:</label>
+				<p>
+					<a ng-href="job/{{app.application._jobId}}">Click here</a>
+				</p>
+			</div>
+			<div class="col-xs-12">
+				<div class="form-group">
+					<label>Your full name:</label>
+					<input type="text" name="fullName" class="form-control" id="" placeholder="Your full name" required="true" ng-model="app.application.fullName"></div>
+				<div class="form-group">
+					<label>Your driver license number:</label>
+					<input type="text" name="driverLicenseNumber" class="form-control" id="" placeholder="Your driver license number" required="true" ng-model="app.application.driverLicenseNumber"></div>
+				<div class="form-group">
+					<label>Your post code:</label>
+					<input type="text" name="postCode" class="form-control" id="" placeholder="Your post code" required="true" ng-model="app.application.postCode"></div>
+				<div class="form-group">
+					<label>Your cover letter:</label>
+					<textarea name="textCoverLetter" id="input" class="form-control" rows="3" ng-model="app.application.textCoverLetter"></textarea>
+				</div>
+				<div class="form-group">
+					<label>Your brief resume:</label>
+					<textarea name="textBriefResume" id="input" class="form-control" rows="3" ng-model="app.application.textBriefResume"></textarea>
+				</div>
+			</div>
+			<div class="col-xs-4">
+				
+			</div>
+			<div class="col-xs-2">
+				<input type="submit" class="btn btn-primary" value="Update application"/>
+			</div>
+			<div class="col-xs-2">
+				<a ng-href="#" class="btn btn-danger">Exit without change</a>
+			</div>
+			<div class="col-xs-4">
+				
+			</div>
+		</form>
+	</div>
+</div>

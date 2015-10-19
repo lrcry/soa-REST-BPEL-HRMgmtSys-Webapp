@@ -1,0 +1,70 @@
+<div class="container">
+	<div class="row centered-text">
+		<h1>Search for jobs</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row centered-text">
+		<form class="navbar-form navbar-left" role="form" ng-submit="searchJob()" method="GET">
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Job title" ng-model="searchModel.title" ng-init="searchModel.title=''" value="''"></div>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Salary rate" ng-model="searchModel.salaryRate"></div>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Position type" ng-model="searchModel.positionType"></div>
+			<div class="form-group">
+				<input type="text" class="form-control" placeholder="Location" ng-model="searchModel.location"></div>
+			<button type="submit" class="btn btn-default">Search</button>
+		</form>
+	</div>
+	<!-- <div>{{searchModel}}</div>
+-->
+</div>
+
+<div class="container job-item-list no-padding-right" ng-show="success == true">
+<div class="row job-item" ng-repeat="job in jobPostings">
+	<div class="col-xs-12">
+		<div class="row">
+			<div class="col-xs-8">
+				<h4>{{job.jobPosting.title}}</h4>
+			</div>
+			<div class="col-xs-1">
+				<a href="job/{{job.jobPosting._jobId}}" class="btn btn-default">Details</a>
+			</div>
+			<div class="col-xs-1">
+				<a href="apply/{{job.jobPosting._jobId}}" class="btn btn-primary">Apply</a>
+			</div>
+			<div class="col-xs-2"></div>
+		</div>
+		<div class="row">
+			<div class="col-xs-2">
+				<p> <i class="fa fa-indent"></i>
+					{{job.jobPosting.positionType}}
+				</p>
+			</div>
+			<div class="col-xs-2">
+				<p> <i class="fa fa-dollar"></i>
+					{{job.jobPosting.salaryRate}}
+				</p>
+			</div>
+			<div class="col-xs-3">
+				<p>
+					<i class="fa fa-calendar"></i>
+					{{job.jobPosting.closingTime}}
+				</p>
+			</div>
+			<div class="col-xs-5">
+				<p>
+					<i class="fa fa-map-marker"></i>
+					{{job.jobPosting.location}}
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="container centered-text" ng-show="jobPostings.length <= 0">
+	<div class="row">
+		<h3>No job found by your criteria...</h3>
+		<p>Try something else?</p>
+	</div>
+</div>

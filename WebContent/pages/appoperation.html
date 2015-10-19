@@ -1,0 +1,40 @@
+<div class="container animated fadeIn">
+	<div class="row centered-text">
+		<h1>{{operationName}} result</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row centered-text bg-success" ng-show="success == true">
+		<h4>{{operationName}} operation of application succeeded. Application ID:</h4>
+		<h3 class="text-success">{{_appIdForOperation}}</h3>
+		<h4>Copy this application ID to view your application.</h4>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<a ng-href="viewapp" class="btn btn-sm btn-default">View application</a>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<a ng-href="#" class="btn btn-sm btn-primary">Apply for a new job</a>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			
+		</div>
+	</div>
+	<div class="row centered-text bg-danger" ng-show="success == false">
+		<h4>{{operationName}} operation of application failed ({{errCode}}). Application ID:</h4>
+		<h3 class="text-danger">{{_appIdForOperation}}</h3>
+		<h4>Reason: {{errMessage}}</h4>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<a ng-href="viewapp" class="btn btn-sm btn-default">View application</a>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			<a ng-href="#" class="btn btn-sm btn-primary">Apply for a new job</a>
+		</div>
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			
+		</div>
+	</div>
+</div>

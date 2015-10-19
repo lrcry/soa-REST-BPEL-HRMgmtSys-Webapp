@@ -31,7 +31,7 @@ orsApp.directive('head', ['$rootScope','$compile',
     }
 ]);
 
-orsApp.config(function($routeProvider, $locationProvider) {
+orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 	$routeProvider.when('/', {
 		templateUrl: 'pages/joblist.html',
 		controller: 'HomeController',
@@ -48,10 +48,41 @@ orsApp.config(function($routeProvider, $locationProvider) {
 		templateUrl: 'pages/jobapply.html',
 		controller: 'JobApplyController',
 		css: 'css/page.css'
-	}).otherwise({
+	}).when('/updateapp/:_appId', {
+		templateUrl: 'pages/updateapp.html',
+		controller: 'UpdateApplicationController',
+		css: 'css/page.css'
+	}).when('/cancelapp/:_appId', {
+		templateUrl: 'pages/appoperation.html',
+		controller: 'CancelApplicationController',
+		css: 'css/page.css'
+	}).when('/archiveapp/:_appId', {
+		templateUrl: 'pages/appoperation.html',
+		controller: 'ArchiveApplicationController',
+		css: 'css/page.css'
+	})
+	/**
+	 * Job postings route
+	 */
+	.when('/searchjob', {
+		templateUrl: 'pages/searchjob.html',
+		controller: 'SearchJobController',
+		css: 'css/page.css'
+	})
+	.otherwise({
 		redirectTo: '/'
 	})
 
 	$locationProvider.html5Mode(true).hashPrefix('!');
+
+	// $httpProvider.interceptors.push(function() {
+ //        return {
+ //            request: function(config) {
+ //                if (~['POST', 'PUT', 'DELETE'].indexOf(config.method)) {
+ //                    config.headers['X-CSRFToken'] = getCookie("csrftoken");
+ //                }
+ //            }
+ //        };
+ //    });
 });
 
