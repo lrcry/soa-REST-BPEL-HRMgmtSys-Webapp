@@ -66,6 +66,18 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		css: 'css/page.css'
 	})
 	/**
+	 * User login and logout
+	 */
+	.when('/login', {
+		templateUrl: 'pages/user/usersign.html',
+		controller: 'LoginController',
+		css: 'css/page.css'
+	}).when('/logout/:_uId', {
+		templateUrl: 'pages/user/usersign.html',
+		controller: 'LogoutController',
+		css: 'css/page.css'
+	})
+	/**
 	 * Job postings route
 	 */
 	.when('/searchjob', {

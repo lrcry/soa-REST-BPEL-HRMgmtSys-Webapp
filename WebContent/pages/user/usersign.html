@@ -1,0 +1,42 @@
+<div class="container animated fadeIn">
+	<div class="row centered-text">
+		<h1>Manager / Hire team login</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 centered-text">
+			<form action="" method="POST" role="form" ng-submit="login()">
+				<div class="form-group">
+					<input type="text" class="form-control" id="" placeholder="User ID" required="true" ng-model="loginModel._uId">
+				</div>
+			
+				<div class="form-group">
+					<input type="password" class="form-control" id="" placeholder="Password" required="true" ng-model="loginModel._pwd">
+				</div>
+			
+				<button type="submit" class="btn btn-primary">Login</button>
+				<button type="reset" class="btn btn-danger">Reset</button>
+			</form>
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			
+		</div>
+	</div>
+	<div class="row centered-text bg-success usersign-info" ng-show="success == true">
+		<h3>Login successful.</h3>
+		<h4>You have logged in via user ID [{{uIdLoggedIn}}]</h4>
+		<h4>System will redirect you to home page after 3 seconds...</h4>
+	</div>
+	<div class="row centered-text bg-danger usersign-info" ng-show="success == false">
+		<h3>Oops! Something wrong during your logging in...</h3>
+		<h4 class="text-danger">{{errCode}}</h4>
+		<h4>Reason: {{errMessage}}</h4>
+	</div>
+	<div class="row centered-text bg-success usersign-info" ng-show="loggedout == true">
+		<h3>Logout successful.</h3>
+		<h4>Redirect after 3 seconds...</h4>
+	</div>
+</div>

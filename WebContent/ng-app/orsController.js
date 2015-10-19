@@ -7,7 +7,17 @@ var orsCtrler = angular.module('orsController', ['ngSanitize', 'ngResource']);
 /**
  * Home page controller
  */
-orsCtrler.controller('HomeController', ['$http', '$scope', function($http, $scope){
+orsCtrler.controller('HomeController', ['$http', '$scope', '$window', '$document', '$rootScope',
+	function($http, $scope, $window, $document, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalUid = '';
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalUid = loginstatus["_uId"];
+	}
+	console.log($rootScope.login + ' ' + $rootScope.globalUid);
 	$http.get(
 		'//localhost:8080/HRMgmtSysREST/jobPostings'
 	).success(function(data) {
@@ -201,6 +211,67 @@ orsCtrler.controller('ArchiveApplicationController', ['$http', '$scope', '$route
 		$scope.errCode = err.errCode;
 		$scope.errMessage = err.errMessage;
 	});
+}])
+
+/*********************************************************************************
+ * User sign in/out controller methods
+ *********************************************************************************/
+
+/**
+ * User login
+ */
+orsCtrler.controller('LoginController', ['$http', '$scope', '$window', '$document', '$timeout',
+	function($http, $scope, $window, $document, $timeout){
+
+	$scope.login = function() {
+		$http.get(
+			'//localhost:8080/HRMgmtSysREST/users/' + $scope.loginModel._uId
+		).success(function(data) {
+			console.log(data);
+			var userId = $scope.loginModel._uId;
+			if ($scope.loginModel._pwd === data.user._pwd) { // _uId _pwd match, success
+				$scope.success = true;
+				var loginResultJson = {
+					login: true,
+					_uId: $scope.loginModel._uId
+				}
+				$window.sessionStorage.setItem('loginstatus', JSON.stringify(loginResultJson));
+				$scope.uIdLoggedIn = userId;
+				$timeout(function() {
+					$window.location.href = 'index.html';
+				}, 3000);
+			} else {
+				
+				$scope.success = false;
+				$scope.errCode = "WRONG_PASSWORD";
+				$scope.errMessage = "You tried to login with user whose ID=" 
+									+ userId + " with a wrong password.";
+			}
+		}).error(function(err) {
+			$scope.success = false;
+			$scope.errCode = err.errCode;
+			$scope.errMessage = err.errMessage;
+		});
+	}
+}])
+
+/**
+ * User logout
+ */
+orsCtrler.controller('LogoutController', ['$http', '$scope', '$routeParams', '$rootScope', '$window', '$timeout',
+	function($http, $scope, $routeParams, $rootScope, $window, $timeout) {
+	$rootScope.login = false;
+	$rootScope.globalUid = '';
+	$scope.loggedout = true;
+	var logoutResultJson = {
+		login: false,
+		_uId: ''
+	}
+
+	$window.sessionStorage.setItem('loginstatus', JSON.stringify(logoutResultJson));
+	$timeout(function() {
+		$window.location.href = 'index.html';
+	}, 3000);
 }])
 
 /*********************************************************************************
