@@ -1,0 +1,53 @@
+<div class="container animated fadeIn">
+	<div class="row centered-text">
+		<h1>Create a new job</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row">
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			<form action="" method="POST" role="form" ng-submit="createJob()">
+			
+				<div class="form-group">
+					<label for="">Job title</label>
+					<input type="text" class="form-control" id="" required="required" ng-model="createJob.title">
+				</div>
+				<div class="form-group">
+					<label for="">Closing time</label>
+					<input type="text" class="form-control" id=""  required="required" ng-model="createJob.closingTime">
+				</div>
+				<div class="form-group">
+					<label for="">Salary rate</label>
+					<input type="text" class="form-control" id=""  required="required" ng-model="createJob.salaryRate">
+				</div>
+				<div class="form-group">
+					<label for="">Position type</label>
+					<input type="text" class="form-control" id="" placeholder="full-time/part-time/intern/casual" required="required" ng-model="createJob.positionType">
+				</div>
+				<div class="form-group">
+					<label for="">Location</label>
+					<input type="text" class="form-control" id="" required="required" ng-model="createJob.location">
+				</div>
+				<div class="form-group">
+					<label for="">Details</label>
+					<textarea name="" id="input" class="form-control" rows="3" required="required" ng-model="createJob.details"></textarea>
+				</div>
+			
+				<button type="submit" class="btn btn-primary">Submit</button>
+			</form>
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+			
+		</div>
+	</div>
+	<div class="row centered-text bg-success" ng-if="success == true">
+		<h3>Create job succeed.</h3>
+	</div>
+	<div class="row centered-text bg-danger" ng-if="success == false">
+		<h3>Create failed.</h3>
+		<h3 class="text-danger">{{errCode}}</h3>
+		<p>{{errMessage}}</p>
+	</div>
+</div>

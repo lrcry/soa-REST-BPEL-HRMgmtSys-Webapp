@@ -116,6 +116,14 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl: 'pages/searchjob.html',
 		controller: 'SearchJobController',
 		css: 'css/page.css'
+	}).when('/createjob', {
+		templateUrl: 'pages/create-job.html',
+		controller: 'CreateJobController',
+		css: 'css/page.css'
+	}).when('/archivejob/:_jobId', {
+		templateUrl: 'pages/archive-job.html',
+		controller: 'ArchiveJobController',
+		css: 'css/page.css'
 	})
 	/** 
 	 * Review route

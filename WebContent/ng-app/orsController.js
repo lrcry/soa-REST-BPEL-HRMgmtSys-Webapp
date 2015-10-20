@@ -616,6 +616,73 @@ orsCtrler.controller('ManageJobsController', ['$http', '$scope', '$window', '$ro
 	});
 }])
 
+/**
+ * Create job controller
+ */
+orsCtrler.controller('CreateJobController', ['$http', '$scope', '$window', '$rootScope',
+	function($http, $scope, $window, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	$scope.createJob = function() {
+		$http({
+			method: 'POST',
+			url: '//localhost:8080/HRMgmtSysREST/jobPostings',
+			data: {
+				_uId: $rootScope.globalLoggedUser._uid,
+				title: $scope.createJob.title,
+				closingTime: $scope.createJob.closingTime,
+				salaryRate: $scope.createJob.salaryRate,
+				positionType: $scope.createJob.positionType,
+				location: $scope.createJob.location,
+				details: $scope.createJob.details
+			}
+		}).success(function(data) {
+			$scope.success = true;
+			$scope.job = data.jobPosting;
+		}).error(function(err) {
+			$scope.success = false;
+			$scope.errCode = err.errCode;
+			$scope.errMessage = err.errMessage;
+		});
+	}
+}])
+
+/**
+ * Archive job controller
+ */
+orsCtrler.controller('ArchiveJobController', ['$http', '$scope', '$window', '$rootScope', '$routeParams',
+	function($http, $scope, $window, $rootScope, $routeParams){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	$http({
+		method: 'DELETE',
+		url: '//localhost:8080/HRMgmtSysREST/jobPostings/' + $routeParams._jobId
+	}).success(function(data) {
+		$scope.success = true;
+		$scope._jobId = data.jobPosting._jobId
+	}).error(function(err) {
+		$scope.success = false;
+		$scope.errCode = err.errCode;
+		$scope.errMessage = err.errMessage;
+	});
+}])
+
 /*********************************************************************************
  * Hiring team controller methods
  *********************************************************************************/

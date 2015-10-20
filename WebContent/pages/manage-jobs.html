@@ -1,24 +1,34 @@
 <div class="container job-item-list no-padding-right">
+	<a ng-href="createjob" type="button" class="btn btn-default"><i class="fa fa-plus"></i> Create new</a>
 	<div class="row job-item wow animated fadeIn" ng-repeat="job in jobPostings">
 		<div class="col-xs-12" ng-if="globalLoggedUser._uid == job.jobPosting._uId">
 			<div class="row">
-				<div class="col-xs-8">
+				<div class="col-xs-6">
 					<h4>{{job.jobPosting.title}}</h4>
 				</div>
 
 				<div class="col-xs-1">
 					<a href="job/{{job.jobPosting._jobId}}" class="btn btn-default btn-job">Job details</a>
 				</div>
+
 				<div class="col-xs-1" ng-if="job.jobPosting.status != 'ARCHIVED'">
 					<a href="update-job" class="btn btn-primary btn-job">Update job</a>
 				</div>
 				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-if="job.jobPosting.status == 'ARCHIVED'">
 					<p class="btn bg-closed btn-job">Archived</p>
 				</div>
+
+				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-if="job.jobPosting.status != 'ARCHIVED'">
+					<a ng-href="archivejob/{{job.jobPosting._jobId}}" type="button" class="btn btn-danger">Archive</a>
+				</div>
+				<div class="col-xs-1 col-sm-1 col-md-1 col-lg-1" ng-if="job.jobPosting.status == 'ARCHIVED'">
+					<p class="btn bg-danger btn-job disabled">Archived</p>
+				</div>
+
 				<div class="col-xs-1">
 					<a ng-href="manage-apps/{{job.jobPosting._jobId}}" type="button" class="btn btn-success">Applications</a>
 				</div>
-				<div class="col-xs-1"></div>
+				<div class="col-xs-2"></div>
 				
 			</div>
 			<div class="row">
