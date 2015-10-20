@@ -104,6 +104,10 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl: 'pages/app-shortlist.html',
 		controller: 'ShortlistController',
 		css: 'css/page.css'
+	}).when('/app-assignreview/:_appId', {
+		templateUrl: 'pages/assignteamreview.html',
+		controller: 'AssignReviewController',
+		css: 'css/page.css'
 	})
 	/**
 	 * Job postings route

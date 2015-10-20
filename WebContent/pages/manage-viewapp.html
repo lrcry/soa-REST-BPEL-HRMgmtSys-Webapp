@@ -20,7 +20,7 @@
 				<h4>Post code:</h4>
 				<p>{{app.application.postCode}}</p>
 				<h4>Application status:</h4>
-				<h5>{{currentStatus}}</h5>
+				<h5>{{app.application.status}}</h5>
 				<h4>Cover letter:</h4>
 				<p ng-if="app.application.textCoverLetter != ''">{{app.application.textCoverLetter}}</p>
 				<p ng-if="app.application.textCoverLetter == ''">(No cover letter submitted)</p>

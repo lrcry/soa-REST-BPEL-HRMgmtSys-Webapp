@@ -1,4 +1,4 @@
-var orsCtrler = angular.module('orsController', ['ngSanitize', 'ngResource']);
+var orsCtrler = angular.module('orsController', ['ngSanitize', 'ngResource', 'ui', 'ui.filters']);
 
 /*********************************************************************************
  * Job application controller methods
@@ -306,6 +306,69 @@ orsCtrler.controller('AutoCheckController', ['$http', '$scope', '$window', '$rou
 			$scope.success = false;
 		});
 	});
+}])
+
+/**
+ * Application assign review controller
+ */
+orsCtrler.controller('AssignReviewController', ['$http', '$scope', '$window', '$routeParams', '$rootScope',
+	function($http, $scope, $window, $routeParams, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	// get hiring teams
+	$scope.appIdReview = $routeParams._appId;
+	$http.get(
+		'//localhost:8080/HRMgmtSysREST/users'
+	).success(function(data) {
+		var teams = [];
+		for (var i = 0; i < data.length; ++i) {
+			var user = data[i];
+			console.log(user);
+			var team = user.user.department;
+			console.log(team);
+			if (teams.indexOf(team) < 0 && team != 'HR') {
+				console.log(teams.indexOf(team));
+				teams.push(team);
+				console.log('now teams: ' + teams);
+			}
+		}
+		$scope.teams = teams;
+	});
+
+	// assign review
+	$scope.assignTeam = function() {
+		$http({
+			method: 'POST',
+			url: '//localhost:8080/HRMgmtSysWeb/assign',
+			data: {
+				_appId: $scope.appIdReview,
+				team: $scope.assignModel.teamSelect
+			}
+		}).success(function(data) {
+			// set app to APP_REVIEWING
+			$http({
+				method: 'PUT',
+				url: '//localhost:8080/HRMgmtSysREST/jobapplications/status/' 
+						+ $scope.appIdReview + '?status=APP_REVIEWING',
+			}).success(function(app) {
+				$scope.success = true;
+			}).error(function(err) {
+				$scope.success = false;
+				$scope.errCode = err.errCode;
+				$scope.errMessage = err.errMessage;
+			});
+		});
+	}
+
+	
 }])
 
 /**

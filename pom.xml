@@ -4,6 +4,7 @@
 	<groupId>au.com.ors</groupId>
 	<artifactId>HRMgmtSysWeb</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>Online Human Resource Management System</name>
 	<description>Website of Online Recruitment System - Dad, I'm wrong T_T</description>
 	<properties>
@@ -111,14 +112,14 @@
 						<webXml>WebContent/WEB-INF/web.xml</webXml>
 						<webResources>
 							<resource>
-								<directory>WebContent/WEB-INF/db</directory>
-								<targetPath>WEB-INF/db</targetPath>
+								<directory>WebContent</directory>
+								<targetPath>/</targetPath>
 							</resource>
 						</webResources>
 					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>
-		<finalName>HRMgmtSysREST</finalName>
+		<finalName>HRMgmtSysWeb</finalName>
 	</build>
 </project>
