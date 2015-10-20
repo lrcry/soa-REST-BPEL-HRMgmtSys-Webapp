@@ -67,11 +67,11 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-6">
-					<a type="button" class="btn btn-danger btn-dashboard" ng-if="app.application.status == 'APP_ACCEPTED_BY_CANDIDATE'">Interview FAIL</a>
+					<a ng-href="appinterview/fail/{{app.application._appId}}" type="button" class="btn btn-danger btn-dashboard" ng-if="app.application.status == 'APP_ACCEPTED_BY_CANDIDATE'">Interview FAIL</a>
 					<a type="button" class="btn btn-danger btn-dashboard disabled" ng-if="app.application.status != 'APP_ACCEPTED_BY_CANDIDATE'">Interview n/a</a>
 				</div>
 				<div class="col-xs-6">
-					<a type="button" class="btn btn-success btn-dashboard" ng-if="app.application.status == 'APP_ACCEPTED_BY_CANDIDATE'">Interview PASS</a>
+					<a ng-href="appinterview/pass/{{app.application._appId}}" type="button" class="btn btn-success btn-dashboard" ng-if="app.application.status == 'APP_ACCEPTED_BY_CANDIDATE'">Interview PASS</a>
 					<a type="button" class="btn btn-success btn-dashboard disabled" ng-if="app.application.status != 'APP_ACCEPTED_BY_CANDIDATE'">Interview n/a</a>
 				</div>
 			</div>

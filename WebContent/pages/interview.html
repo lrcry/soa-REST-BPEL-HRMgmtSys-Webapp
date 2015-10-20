@@ -1,0 +1,14 @@
+<div class="container animated fadeIn">
+	<div class="row centered-text">
+		<h1>Interview result changed</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row centered-text bg-success" ng-if="success == true">
+		<h3>Change interview result to {{result}}.</h3>
+	</div>
+	<div class="row centered-text bg-danger" ng-if="success == false">
+		<h3>Failed.</h3>
+		<h3 class="text-danger">{{errCode}}</h3>
+		<p>{{errMessage}}</p>
+	</div>
+</div>

@@ -64,6 +64,10 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		templateUrl: 'pages/appoperation.html',
 		controller: 'ArchiveApplicationController',
 		css: 'css/page.css'
+	}).when('/appinterview/:action/:_appId', {
+		templateUrl: 'pages/interview.html',
+		controller: 'InterviewResultController',
+		css: 'css/page.css'
 	})
 	/**
 	 * User login and logout

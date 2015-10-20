@@ -408,6 +408,40 @@ orsCtrler.controller('ShortlistController', ['$http', '$scope', '$window', '$rou
 	});	
 }])
 
+orsCtrler.controller('InterviewResultController', ['$http', '$scope', '$window', '$routeParams', '$rootScope',
+	function($http, $scope, $window, $routeParams, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	var action = $routeParams.action;
+	var interUrl = '//localhost:8080/HRMgmtSysREST/jobapplications/status/' 
+					+ $routeParams._appId + '?status=';
+	if (action === 'fail') {
+		interUrl += 'APP_INTERVIEW_FAILED';
+	} else if (action === 'pass') {
+		interUrl += 'APP_INTERVIEW_PASSED';
+	}
+
+	$http({
+		method: 'PUT',
+		url: interUrl
+	}).success(function(data) {
+		$scope.success = true;
+		$scope.result = action;
+	}).error(function(err) {
+		$scope.success = false;
+		$scope.errCode = err.errCode;
+		$scope.errMessage = err.errMessage;
+	});
+	
+}])
 /*********************************************************************************
  * User sign in/out controller methods
  *********************************************************************************/
@@ -817,7 +851,6 @@ orsCtrler.controller('CloseReviewController', ['$http', '$scope', '$window', '$r
  */
 orsCtrler.controller('ReviewResultController', ['$http', '$scope', '$window', '$routeParams', '$rootScope', 
 	function($http, $scope, $window, $routeParams, $rootScope){
-	alert('review result!');
 	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
 		$rootScope.login = false;
 		$rootScope.globalLoggedUser = {};
@@ -833,7 +866,6 @@ orsCtrler.controller('ReviewResultController', ['$http', '$scope', '$window', '$
 	).success(function(data) {
 		$scope.success = true;
 		$scope.reviews = data;
-		alert($scope.reviews);
 	}).error(function(err) {
 		$scope.success = false;
 		$scope.errCode = err.errCode;
