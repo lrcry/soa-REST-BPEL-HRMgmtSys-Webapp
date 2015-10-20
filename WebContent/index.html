@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<base href="/hrmgmtsysweb/">
+	<base href="/HRMgmtSysWeb/">
 	<title>Online Recruitment Supreme - Dad, I'm wrong T_T</title>
 
 	<!-- Bootstrap CSS -->
@@ -55,7 +55,8 @@
 		<div class="collapse navbar-collapse navbar-ex1-collapse">
 			
 			<ul class="nav navbar-nav navbar-right" ng-show="login == true">
-				<li><a ng-href="dashboard-manager">G'day, {{globalLoggedUser.firstName}} {{globalLoggedUser.lastName}} ({{globalLoggedUser.shortKey}})</a></li>
+				<li><a ng-href="dashboard-manager" ng-if="globalLoggedUser.role == 'manager'">G'day, {{globalLoggedUser.firstName}} {{globalLoggedUser.lastName}} ({{globalLoggedUser.shortKey}})</a></li>
+				<li><a ng-href="dashboard-reviewer" ng-if="globalLoggedUser.role == 'reviewer'">G'day, {{globalLoggedUser.firstName}} {{globalLoggedUser.lastName}} ({{globalLoggedUser.shortKey}})</a></li>
 				<li><a ng-href="logout/{{globalLoggedUser._uid}}"><i class="fa fa-sign-out"></i> Logout</a></li>
 			</ul>
 		</div><!-- /.navbar-collapse -->

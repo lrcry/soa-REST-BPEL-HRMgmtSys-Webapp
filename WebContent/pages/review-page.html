@@ -1,0 +1,78 @@
+<div class="container">
+	<div class="row centered-text">
+		<h1>{{action}} review for application</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div class="row"><a ng-href="dashboard-reviewer" type="button" class="btn btn-default">Back to dashboard</a></div>
+
+	<!-- close review -->
+	<div class="row centered-text" ng-show="action === 'Close'">
+		<div ng-if="success == true">
+			<h3 class="text-success">Close succeed.</h3>
+		</div>
+		<div ng-if="success == false">
+			<h3 class="text-danger">Cannot close review: {{errCode}}</h3>
+			<p>{{errMessage}}</p>
+		</div>
+	</div>
+
+	<!-- create/view review -->
+	<div class="row" ng-show="action != 'Close'">
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<!-- application info -->
+			<h3>Application</h3>
+			<h4>Application ID:</h4>
+			<p>{{app._appId}}</p>
+			<h4>Candidate full name:</h4>
+			<p>{{app.fullName}}</p>
+			<h4>Driver license number:</h4>
+			<p>{{app.driverLicenseNumber}}</p>
+			<h4>Post code:</h4>
+			<p>{{app.postCode}}</p>
+			<h4>Application status:</h4>
+			<p>{{app.status}}</p>
+			<h4>Candidate cover letter:</h4>
+			<p>{{app.textCoverLetter}}</p>
+			<h4>Candidate brief resume:</h4>
+			<p>{{app.textBriefResume}}</p>
+		</div>
+		<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+			<!-- create review -->
+			<h3>Review</h3>
+			<div ng-show="action === 'Create'">
+				<form action="" method="POST" role="form" ng-submit="submitReview()">
+					<div class="form-group">
+						<label for="">Your decision</label>
+						<input type="text" name="" id="input" class="form-control" value="" required="required" placeholder="shortlist/unshortlist" title="" ng-model="addReview.decision">
+					</div>
+					<h5>{{addReview.decision}}</h5>
+
+					<div class="form-group">
+						<label for="">Your comments</label>
+						<textarea name="" id="input" class="form-control" rows="3" required="required" ng-model="addReview.comments"></textarea>
+					</div>
+					<button type="submit" class="btn btn-success">Create</button>
+				</form>
+			</div>
+			<div ng-if="success == true">
+				<h4 class="text-success">Review succeed!</h4>
+			</div>
+			<div ng-if="success == false">
+				<h4 class="text-danger">Error when creating review {{errCode}}:</h4>
+				<h5>{errMessage}</h5>
+			</div>
+			<!-- view review -->
+			<div ng-show="action === 'View'">
+				<h4>Review ID:</h4>
+				<p>{{review._reviewId}}</p>
+				<h4>Decision:</h4>
+				<p>{{review.decision}}</p>
+				<h4>Comments:</h4>
+				<p>{{review.comments}}</p>
+			</div>
+		</div>
+	</div>
+
+</div>
+	
+

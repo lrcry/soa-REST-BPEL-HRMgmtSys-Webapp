@@ -367,8 +367,6 @@ orsCtrler.controller('AssignReviewController', ['$http', '$scope', '$window', '$
 			});
 		});
 	}
-
-	
 }])
 
 /**
@@ -436,7 +434,7 @@ orsCtrler.controller('LoginController', ['$http', '$scope', '$window', '$documen
 				$scope.loggedUser = data.user;
 				$timeout(function() {
 					$window.location.href = 'index.html';
-				}, 3000);
+				}, 1000);
 			} else {
 				
 				$scope.success = false;
@@ -468,14 +466,67 @@ orsCtrler.controller('LogoutController', ['$http', '$scope', '$routeParams', '$r
 	$window.sessionStorage.setItem('loginstatus', JSON.stringify(logoutResultJson));
 	$timeout(function() {
 		$window.location.href = 'index.html';
-	}, 3000);
+	}, 1000);
 }])
 
-orsCtrler.controller('ReviewerDashboardController', ['$http', '$scope', '$window', '$rootScope',
-	function($http, $scope){
-	alert("reviewer not implemented");
+/**
+ * Reviewer dashboard controller
+ */
+orsCtrler.controller('ReviewerDashboardController', ['$http', '$scope', '$window', '$routeParams', '$rootScope',
+	function($http, $scope, $window, $routeParams, $rootScope){
+	// authorised user behaviour
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	var reviewer = $rootScope.globalLoggedUser;
+	$scope.appForReviewArray = [];
+	$http.get(
+		'//localhost:8080/HRMgmtSysWeb/teamassign/' + reviewer.department
+	).success(function(data) {
+		var reviews = data; // {_appId, team}
+		if (reviews.length <= 0) {
+			$scope.haveReview = false; // have nothing to review at present
+		} else {
+			$scope.haveReview = true; // have something to review at present
+
+			for (var i = 0; i < reviews.length; ++i) {
+				var review = reviews[i];
+				$http.get(
+					'//localhost:8080/HRMgmtSysREST/jobapplications/' + review._appId
+				).success(function(app) {
+					var appForReview = app.application;
+					$http.get(
+						'//localhost:8080/HRMgmtSysREST/reviews?_appId=' 
+							+ appForReview._appId + '&_uId=' + reviewer._uid
+					).success(function(rev) {
+						// if user's review found in database, can see review but not create or update,
+						// can close review
+						if (rev.length > 0) {
+							appForReview.reviewed = rev[0].review._reviewId;
+						} else {
+							// otherwise user can create review only, 
+							// cannot see review, cannot close review
+							appForReview.reviewed = "NOT_REVIEWED_YET";
+						}
+						$scope.appForReviewArray.push(appForReview);
+					});
+
+				});
+			}
+		}
+	});
 }])
 
+/**
+ * Manager dashboard controller
+ */
 orsCtrler.controller('ManagerDashboardController', ['$http', '$scope', '$window', '$rootScope',
 	function($http, $scope, $window, $rootScope){
 	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
@@ -490,6 +541,7 @@ orsCtrler.controller('ManagerDashboardController', ['$http', '$scope', '$window'
 	}
 	console.log($rootScope.globalLoggedUser);
 }])
+
 /*********************************************************************************
  * Job posting controller methods
  *********************************************************************************/
@@ -497,7 +549,7 @@ orsCtrler.controller('ManagerDashboardController', ['$http', '$scope', '$window'
 /**
  * Search for job posting
  */
-orsCtrler.controller('SearchJobController', ['$http', '$scope', '$routeParams', 
+orsCtrler.controller('SearchJobController', ['$http', '$scope',
 	function($http, $scope) {
 	$scope.searchJob = function() {
 		var searchTitle = $scope.searchModel.title;
@@ -561,5 +613,163 @@ orsCtrler.controller('ManageJobsController', ['$http', '$scope', '$window', '$ro
 		$scope.jobPostings = data;
 		$scope.isHomePage = false;
 		console.log($scope.isHomePage);
+	});
+}])
+
+/*********************************************************************************
+ * Hiring team controller methods
+ *********************************************************************************/
+
+/**
+ * View review controller
+ */
+orsCtrler.controller('ViewReviewController', ['$http', '$scope', '$window', '$routeParams', '$rootScope', 
+	function($http, $scope, $window, $routeParams, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	$scope.action = 'View';
+	$http.get(
+		'//localhost:8080/HRMgmtSysREST/jobapplications/' + $routeParams._appId
+	).success(function(app) {
+		$scope.app = app.application;
+		
+		$http.get(
+			'//localhost:8080/HRMgmtSysREST/reviews?_appId=' 
+				+ app.application._appId 
+				+ '&_uId=' + $rootScope.globalLoggedUser._uid
+		).success(function(rev) {
+			$scope.review = rev[0].review;
+		});
+	});
+
+
+}])
+
+/**
+ * Create new review controller
+ */
+orsCtrler.controller('CreateReviewController', ['$http', '$scope', '$window', '$routeParams', '$rootScope', 
+	function($http, $scope, $window, $routeParams, $rootScope){
+
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	var _appIdReview = ''; // got app id
+
+	$scope.action = 'Create';
+	$http.get(
+		'//localhost:8080/HRMgmtSysREST/jobapplications/' + $routeParams._appId
+	).success(function(app) {
+		$scope.app = app.application;
+		// _appIdReview = app.application._appId;
+	});
+
+	
+	var _uIdReview = $rootScope.globalLoggedUser._uid; // got user id
+	// alert('[' + _appIdReview + '] [' + _uIdReview + ']');
+
+	$scope.submitReview = function() {
+		$http({
+			method: 'POST',
+			url: '//localhost:8080/HRMgmtSysREST/reviews',
+			data: {
+				_appId: $routeParams._appId,
+				_uId: _uIdReview,
+				comments: $scope.addReview.comments,
+				decision: $scope.addReview.decision
+			}
+		}).success(function(data) {
+			$scope.success = true;
+		}).error(function(err) {
+			$scope.success = false;
+			$scope.errCode = err.errCode;
+			$scope.errMessage = err.errMessage;
+		});
+	}
+}])
+
+/**
+ * Close review controller
+ */
+orsCtrler.controller('CloseReviewController', ['$http', '$scope', '$window', '$routeParams', '$rootScope', 
+	function($http, $scope, $window, $routeParams, $rootScope){
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	$scope.action = 'Close';
+	$scope._appId = $routeParams._appId;
+
+	// set app status to reviewed
+	$http({
+		method: 'PUT',
+		url: '//localhost:8080/HRMgmtSysREST/jobapplications/status/' 
+			+ $routeParams._appId + '?status=APP_REVIEWED'
+	}).success(function(app) {
+		// close in webapp
+		$http({
+			method: 'POST',
+			url: '//localhost:8080/HRMgmtSysWeb/closeassign/' + $routeParams._appId
+		}).success(function(assign) {
+			$scope.success = true;
+		}).error(function(closeErr) {
+			$scope.success = false;
+			$scope.errCode = err.errCode;
+			$scope.errMessage = err.errMessage;
+		});
+	}).error(function(err) {
+		$scope.success = false;
+		$scope.errCode = err.errCode;
+		$scope.errMessage = err.errMessage;
+	});
+}])
+
+/**
+ * Review result controller
+ */
+orsCtrler.controller('ReviewResultController', ['$http', '$scope', '$window', '$routeParams', '$rootScope', 
+	function($http, $scope, $window, $routeParams, $rootScope){
+	alert('review result!');
+	if (!angular.isDefined($window.sessionStorage.loginstatus)) {
+		$rootScope.login = false;
+		$rootScope.globalLoggedUser = {};
+		$window.href.location = 'login.html'; // if not loggedin, go to login page
+	} else {
+		var loginstatus = JSON.parse($window.sessionStorage.loginstatus);
+		$rootScope.login = loginstatus["login"];
+		$rootScope.globalLoggedUser = loginstatus["loggedUser"];
+	}
+
+	$http.get(
+		'//localhost:8080/HRMgmtSysREST/reviews?_appId=' + $routeParams._appId
+	).success(function(data) {
+		$scope.success = true;
+		$scope.reviews = data;
+		alert($scope.reviews);
+	}).error(function(err) {
+		$scope.success = false;
+		$scope.errCode = err.errCode;
+		$scope.errMessage = err.errMessage;
 	});
 }])

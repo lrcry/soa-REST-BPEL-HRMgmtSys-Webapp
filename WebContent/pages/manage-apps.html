@@ -46,7 +46,7 @@
 					<a type="button" class="btn btn-default btn-dashboard disabled" ng-if="app.application.status == 'APP_SHORTLISTED' || app.application.status == 'APP_ACCEPTED_BY_CANDIDATE' || app.application.status == 'APP_INTERVIEW_PASSED' || app.application.status == 'APP_INTERVIEW_FAILED' || app.application.status == 'APP_REJECTED_BY_CANDIDATE' || app.application.status == 'APP_NOT_SHORTLISTED' || app.application.status == 'APP_CANCELLED' || app.application.status == 'APP_ARCHIVED'">HR team n/a</a>
 					 
 					<a type="button" class="btn btn-default btn-dashboard disabled" ng-if="app.application.status == 'APP_REVIEWING'">Reviewing</a>
-					<a type="button" class="btn btn-default btn-dashboard" ng-if="app.application.status == 'APP_REVIEWED'">Review result</a>
+					<a ng-href="review-results/{{app.application._appId}}" type="button" class="btn btn-default btn-dashboard" ng-if="app.application.status == 'APP_REVIEWED'">Review result</a>
 				</div>
 				<div ng-if="app.application.status == 'APP_REVIEWED'">
 					<div class="col-xs-3">

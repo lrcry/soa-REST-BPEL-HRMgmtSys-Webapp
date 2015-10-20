@@ -1,1 +1,65 @@
-	<h1>reviewer dash</h1>
+<div class="container animated fadeIn">
+	<div class="row centered-text">
+		<h1>Reviewer dashboard</h1>
+		<hr class="title-hr"/>
+	</div>
+	<div ng-show="haveReview == true">
+		<div class="row app-item wow animated fadeIn" ng-repeat="app in appForReviewArray">
+			
+			<div class="col-xs-8">
+				<div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Application ID:</h4>
+						<p>{{app._appId}}</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Job ID:</h4>
+						<p>{{app._jobId}}</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Application status:</h4>
+						<p>{{app.status}}</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Driver license number:</h4>
+						<p>{{app.driverLicenseNumber}}</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Full name:</h4>
+						<p>{{app.fullName}}</p>
+					</div>
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<h4>Post code</h4>
+						<p>{{app.postCode}}</p>
+					</div>
+				</div>
+			</div>
+			<!-- buttons when not review yet -->
+			<div ng-show="app.reviewed == 'NOT_REVIEWED_YET'">
+				<div class="col-xs-2">
+					<a ng-href="create-review/{{app._appId}}" type="button" class="btn btn-default">Create review</a>
+				</div>
+				<div class="col-xs-2">
+					<a type="button" class="btn btn-danger disabled">Mark n/a</a>
+				</div>
+			</div>
+
+			<!-- buttons when have reviewed -->
+			<div ng-show="app.reviewed != 'NOT_REVIEWED_YET'">
+				<div class="col-xs-2">
+					<a ng-href="view-review/{{app.reviewed}}/app/{{app._appId}}" type="button" class="btn btn-default">View review</a>
+				</div>
+				<div class="col-xs-2">
+					<a ng-href="mark-reviewed/{{app._appId}}" type="button" class="btn btn-danger" ng-show="app.status === 'APP_REVIEWING'">Mark as reviewed</a>
+					<a type="button" class="btn btn-danger disabled" ng-show="app.status === 'APP_REVIEWED'">Closed</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row centered-text" ng-show="haveReview == false">
+		<h3>No application for you to review at present.</h3>
+		<img src="images/happy.png"/>
+	</div>
+</div>

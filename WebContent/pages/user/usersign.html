@@ -28,7 +28,7 @@
 	<div class="row centered-text bg-success usersign-info" ng-show="success == true">
 		<h3>Login successful.</h3>
 		<h4>You have logged in as {{loggedUser.firstName}} {{loggedUser.lastName}} ({{loggedUser.shortKey}})</h4>
-		<h4>System will redirect you to home page after 3 seconds...</h4>
+		<h4>System will redirect you to home page after 1 second...</h4>
 	</div>
 	<div class="row centered-text bg-danger usersign-info" ng-show="success == false">
 		<h3>Oops! Something wrong during your logging in...</h3>
@@ -37,6 +37,6 @@
 	</div>
 	<div class="row centered-text bg-success usersign-info" ng-show="loggedout == true">
 		<h3>Logout successful.</h3>
-		<h4>Redirect after 3 seconds...</h4>
+		<h4>Redirect to home page after 1 second...</h4>
 	</div>
 </div>

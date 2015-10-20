@@ -117,6 +117,26 @@ orsApp.config(function($routeProvider, $locationProvider, $httpProvider) {
 		controller: 'SearchJobController',
 		css: 'css/page.css'
 	})
+	/** 
+	 * Review route
+	 */
+	.when('/create-review/:_appId', {
+		templateUrl: 'pages/review-page.html',
+		controller: 'CreateReviewController',
+		css: 'css/page.css'
+	}).when('/view-review/:_reviewId/app/:_appId', {
+		templateUrl: 'pages/review-page.html',
+		controller: 'ViewReviewController',
+		css: 'css/page.css'
+	}).when('/mark-reviewed/:_appId/', {
+		templateUrl: 'pages/review-page.html',
+		controller: 'CloseReviewController',
+		css: 'css/page.css'
+	}).when('/review-results/:_appId', {
+		templateUrl: 'pages/review-result.html',
+		controller: 'ReviewResultController',
+		css: 'css/page.css'
+	})
 	.otherwise({
 		redirectTo: '/'
 	})
